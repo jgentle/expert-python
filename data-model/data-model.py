@@ -11,10 +11,21 @@ Examples.
 
     repr(x) ==>     __repr__
 
+    x() ==>  __call__
+
 The python data model is a means by which you can implement protocols.
-These protocols have some abstract meaning depending on the object itself.
+Those protocols have some abstract meaning depending on the object itself.
+
 Ex. adding polynomials mens what that means in a math class.
-Ex. getting its representation means the string required to create another object of that Type.
+Ex. getting its principle representation means the string input required to create another instance of that object.
+
+In each case:
+- this protocol exists
+- a dunderscore method implements the protocol
+- there is a top level function or syntax that invokes the protocol
+    -- usually related to some component
+
+Every time we want custom behavior implemented on a custom object,
 
 """
 
@@ -103,7 +114,7 @@ Polynomial_2(*(4, 6, 6))
 
 
 # v.4 :: Enhanced polynomial class - add len.
-# """
+"""
 class Polynomial_4:
     def __init__(self, *coeffs):
         self.coeffs = coeffs
@@ -119,11 +130,42 @@ class Polynomial_4:
 
 p1_4 = Polynomial_4(1, 2, 3)      # x2 + 2x  3
 p2_4 = Polynomial_4(3, 4, 3)      # 3x2 + 4x + 3
-# """
+"""
 
 """
 >>> len(p1_4)
 3
 >>> len(p2_4)
 3
+"""
+
+
+# v.5 :: Enhanced polynomial class - add call.
+# """
+class Polynomial_5:
+    def __init__(self, *coeffs):
+        self.coeffs = coeffs
+
+    def __repr__(self):
+        return 'Polynomial_2(*{!r})'.format(self.coeffs)
+
+    def __add__(self, other):
+        return Polynomial_3(*(x + y for x, y in zip(self.coeffs, other.coeffs)))
+
+    def __len__(self):
+        return len(self.coeffs)
+
+    def __call__(self):
+        print('Called')
+        return
+
+p1_5 = Polynomial_5(1, 2, 3)      # x2 + 2x  3
+p2_5 = Polynomial_5(3, 4, 3)      # 3x2 + 4x + 3
+# """
+
+"""
+>>> p1_5()
+Called
+>>> p2_5()
+Called
 """
