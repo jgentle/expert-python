@@ -1,5 +1,7 @@
 # Data Model
 
+[0:00 - 19:00]
+
 ## Creating Behavior in a Custom Class
 
 The emerging pattern is that for any behavior that you want to implement, you write the __function__ ('dunder methods' aka data model methods) for the class.
